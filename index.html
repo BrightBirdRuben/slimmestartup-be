@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slimme Startup Door Overname</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #1C2B22;
+    --white: #FFFFFF;
+    --accent: #1A7A4A;
+    --accent2: #2ECC7A;
+    --grey-light: #F5F5F5;
+    --grey-mid: #E0E0E0;
+    --grey-text: #666666;
+    --green: #0FA860;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--grey-mid);
+  }
+
+  .nav-logo {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    color: var(--black);
+  }
+
+  .nav-logo span { color: var(--accent); }
+  .nav-logo .logo-grey { color: #4A5568; }
+  .footer-logo .logo-grey-footer { color: rgba(255,255,255,0.5); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--black);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: var(--white) !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2px;
+    font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: #145e38 !important; color: var(--white) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+
+  .hero-left {
+    padding: 8rem 4rem 6rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.8rem;
+  }
+
+  h1 .highlight {
+    color: var(--accent);
+    position: relative;
+    display: inline-block;
+  }
+
+  h1 .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 0; right: 0;
+    height: 4px;
+    background: var(--accent2);
+    opacity: 0.4;
+    border-radius: 2px;
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--grey-text);
+    max-width: 500px;
+    margin-bottom: 3rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .hero-sub strong {
+    color: var(--black);
+    font-weight: 500;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--black);
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    padding: 1rem 2rem;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+
+  .btn-primary svg { transition: transform 0.2s; }
+  .btn-primary:hover svg { transform: translateX(4px); }
+
+  .btn-secondary {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--grey-text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s;
+  }
+
+  .btn-secondary:hover { color: var(--black); }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--grey-mid);
+  }
+
+  .stat-item {}
+  .stat-num {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--grey-text);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  /* HERO RIGHT */
+  .hero-right {
+    background: var(--black);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 4rem;
+  }
+
+  .hero-right-photo {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .hero-right-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(28,43,34,0.55) 0%,
+      rgba(28,43,34,0.3) 40%,
+      rgba(28,43,34,0.75) 100%
+    );
+  }
+
+  .hero-right-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(26,122,74,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,122,74,0.08) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .hero-right-glow {
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(26,122,74,0.25) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-right-glow2 {
+    position: absolute;
+    bottom: 50px;
+    left: -50px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(46,204,122,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-card {
+    position: relative;
+    z-index: 2;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 2rem;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-card-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+  }
+
+  .hero-card-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-card-desc {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    margin-top: 1rem;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    animation: progress 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes progress {
+    from { width: 20%; }
+    to { width: 85%; }
+  }
+
+  .spots-badge {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--accent);
+    color: var(--white);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.6rem 1.2rem;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    align-self: flex-start;
+  }
+
+  .spots-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--white);
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  /* SECTION BASE */
+  section { padding: 7rem 4rem; }
+
+  .section-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section-tag::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-intro {
+    font-size: 1.1rem;
+    color: var(--grey-text);
+    max-width: 580px;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* PROBLEEM SECTIE */
+  .problem {
+    background: var(--grey-light);
+    border-top: 1px solid var(--grey-mid);
+    border-bottom: 1px solid var(--grey-mid);
+  }
+
+  .problem-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .problem-list {
+    list-style: none;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .problem-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    background: var(--white);
+    border-radius: 4px;
+    border-left: 3px solid var(--accent);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .problem-list li .icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .quote-block {
+    background: #2D3F35;
+    color: var(--white);
+    padding: 3rem;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quote-block::before {
+    content: '"';
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12rem;
+    font-weight: 800;
+    color: rgba(26,122,74,0.15);
+    position: absolute;
+    top: -2rem;
+    left: 1rem;
+    line-height: 1;
+  }
+
+  .quote-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .quote-source {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .quote-stat {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    gap: 2rem;
+  }
+
+  .quote-stat-item {}
+  .quote-stat-num {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .quote-stat-label {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.4;
+  }
+
+  /* HOE HET WERKT */
+  .how {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .how-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 5rem;
+    align-items: end;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--green));
+    z-index: 0;
+  }
+
+  .step {
+    text-align: center;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-num {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 3px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--accent);
+    margin: 0 auto 1.5rem;
+    position: relative;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .step:hover .step-num {
+    background: var(--accent);
+    color: var(--white);
+  }
+
+  .step-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+
+  .step-desc {
+    font-size: 0.82rem;
+    color: var(--grey-text);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* EQUITY SECTIE */
+  .equity {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .equity-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .equity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 6rem;
+    align-items: center;
+    margin-top: 4rem;
+  }
+
+  .equity-track {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .equity-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    transition: border-color 0.2s, background 0.2s;
+    cursor: default;
+  }
+
+  .equity-item:hover {
+    border-color: rgba(26,122,74,0.4);
+    background: rgba(26,122,74,0.05);
+  }
+
+  .equity-item.active {
+    border-color: var(--accent);
+    background: rgba(26,122,74,0.08);
+  }
+
+  .equity-pct {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--accent);
+    letter-spacing: -0.03em;
+  }
+
+  .equity-label {
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.4;
+  }
+
+  .equity-when {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.3);
+    text-align: right;
+  }
+
+  .equity-visual {
+    position: relative;
+  }
+
+  .donut-container {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    margin: 0 auto;
+  }
+
+  .donut-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .donut-pct {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 2.5rem;
+    letter-spacing: -0.04em;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .donut-sub {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.3rem;
+  }
+
+  .equity-note {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(0,200,150,0.1);
+    border: 1px solid rgba(0,200,150,0.3);
+    border-radius: 4px;
+    font-size: 0.88rem;
+    color: var(--green);
+    line-height: 1.6;
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  /* PROFIEL SECTIE */
+  .profile {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .profile-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+    align-items: end;
+  }
+
+  .profile-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .profile-card {
+    padding: 2rem;
+    border: 1px solid var(--grey-mid);
+    border-radius: 4px;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+
+  .profile-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  }
+
+  .profile-icon {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .profile-card h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+
+  .profile-card p {
+    font-size: 0.85rem;
+    color: var(--grey-text);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* BEDRIJFSPROFIEL */
+  .company-profile {
+    background: var(--grey-light);
+    border-top: 1px solid var(--grey-mid);
+    border-bottom: 1px solid var(--grey-mid);
+  }
+
+  .company-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .spec-item {
+    background: var(--white);
+    border-radius: 4px;
+    padding: 1.5rem;
+    border: 1px solid var(--grey-mid);
+  }
+
+  .spec-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+
+  .spec-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--grey-text);
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+  }
+
+  .spec-value {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--black);
+  }
+
+  .transform-list {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .transform-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.92rem;
+    color: var(--grey-text);
+    font-weight: 300;
+  }
+
+  .transform-item .check {
+    width: 24px;
+    height: 24px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  /* KOSTEN SECTIE */
+  .costs {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .costs-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .costs-header .section-tag {
+    justify-content: center;
+  }
+
+  .costs-header .section-tag::before { display: none; }
+
+  .costs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .cost-card {
+    padding: 2.5rem;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cost-card.free {
+    background: var(--grey-light);
+    border: 1px solid var(--grey-mid);
+  }
+
+  .cost-card.selected {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .cost-card.success {
+    background: var(--white);
+    border: 2px solid var(--accent);
+  }
+
+  .cost-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+  }
+
+  .cost-card.free .cost-badge { background: var(--grey-mid); color: var(--grey-text); }
+  .cost-card.selected .cost-badge { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); }
+  .cost-card.success .cost-badge { background: var(--accent); color: var(--white); }
+
+  .cost-price {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 2.5rem;
+    letter-spacing: -0.04em;
+    margin-bottom: 0.3rem;
+    line-height: 1;
+  }
+
+  .cost-card.selected .cost-price { color: var(--white); }
+  .cost-card.success .cost-price { color: var(--accent); }
+
+  .cost-when {
+    font-size: 0.82rem;
+    color: var(--grey-text);
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .cost-card.selected .cost-when { color: rgba(255,255,255,0.5); }
+
+  .cost-desc {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  .cost-card.selected .cost-desc { color: rgba(255,255,255,0.65); }
+
+  /* BOEK SECTIE */
+  .book {
+    background: var(--black);
+    color: var(--white);
+    overflow: hidden;
+  }
+
+  .book-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .book-cover {
+    position: relative;
+  }
+
+  .book-mockup {
+    background: linear-gradient(135deg, #1a1a1a, #333);
+    border-radius: 4px 12px 12px 4px;
+    padding: 3rem 2.5rem;
+    box-shadow: -8px 8px 0 rgba(26,122,74,0.3), 20px 30px 80px rgba(0,0,0,0.6);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .book-mockup::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 12px;
+    background: var(--accent);
+    border-radius: 4px 0 0 4px;
+  }
+
+  .book-mockup-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--white);
+  }
+
+  .book-mockup-sub {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+
+  .book-mockup-author {
+    font-size: 0.88rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: 2rem;
+  }
+
+  .book-content h2 { color: var(--white); }
+
+  .book-content .section-intro {
+    color: rgba(255,255,255,0.55);
+  }
+
+  .book-points {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .book-point {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .book-point-num {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    width: 28px;
+  }
+
+  .book-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--accent);
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 0.9rem 1.8rem;
+    border-radius: 2px;
+    margin-top: 2.5rem;
+    letter-spacing: 0.02em;
+    transition: background 0.2s;
+  }
+
+  .book-btn:hover { background: #145e38; }
+
+  /* CTA SECTIE */
+  .cta-section {
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(26,122,74,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 50%, rgba(46,204,122,0.06) 0%, transparent 50%);
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-section h2 {
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    margin-bottom: 1.2rem;
+  }
+
+  .cta-section p {
+    font-size: 1.05rem;
+    color: var(--grey-text);
+    margin-bottom: 3rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .cta-warning {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(26,122,74,0.08);
+    border: 1px solid rgba(26,122,74,0.2);
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .cta-btn-main {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--accent);
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1.05rem;
+    padding: 1.2rem 2.8rem;
+    border-radius: 2px;
+    letter-spacing: 0.01em;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 8px 32px rgba(26,122,74,0.3);
+  }
+
+  .cta-btn-main:hover { background: #145e38; transform: translateY(-3px); box-shadow: 0 16px 48px rgba(26,122,74,0.35); }
+
+  .cta-meta {
+    margin-top: 1.5rem;
+    font-size: 0.82rem;
+    color: var(--grey-text);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    color: rgba(255,255,255,0.45);
+    padding: 3rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.82rem;
+  }
+
+  .footer-logo {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .footer-logo span { color: var(--accent); }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--white); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  .fade-up-delay-1 { animation-delay: 0.1s; opacity: 0; }
+  .fade-up-delay-2 { animation-delay: 0.25s; opacity: 0; }
+  .fade-up-delay-3 { animation-delay: 0.4s; opacity: 0; }
+  .fade-up-delay-4 { animation-delay: 0.55s; opacity: 0; }
+
+  /* DONUT SVG */
+  .donut-svg { transform: rotate(-90deg); }
+  .donut-track { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 20; }
+  .donut-fill { fill: none; stroke-width: 20; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+  .donut-fill-you { stroke: var(--accent); }
+  .donut-fill-us { stroke: rgba(255,255,255,0.15); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><span class="logo-grey">Slimme</span><span>Startup</span></a>
+  <ul class="nav-links">
+    <li><a href="#hoe-het-werkt">Hoe het werkt</a></li>
+    <li><a href="#voor-jou">Voor jou?</a></li>
+    <li><a href="#bedrijven">De bedrijven</a></li>
+    <li><a href="#boek">Het boek</a></li>
+    <li><a href="#kandideer" class="nav-cta">Kandideer nu</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-tag fade-up">Entrepreneurship Through Acquisition</span>
+    <h1 class="fade-up fade-up-delay-1">
+      Waarom een startup<br>
+      beginnen als je er<br>
+      eentje kan <span class="highlight">kopen?</span>
+    </h1>
+    <p class="hero-sub fade-up fade-up-delay-2">
+      Geen idee nodig. Geen startkapitaal. Geen netwerk.<br>
+      <strong>Wij kopen het bedrijf. Jij runt het.</strong> En bouwt stap voor stap eigenaarschap op — tot 30%.
+    </p>
+    <div class="hero-actions fade-up fade-up-delay-3">
+      <a href="#kandideer" class="btn-primary">
+        Stuur je kandidatuur
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="#hoe-het-werkt" class="btn-secondary">
+        Hoe werkt het?
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M7 3v8M3 9l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="hero-stats fade-up fade-up-delay-4">
+      <div class="stat-item">
+        <span class="stat-num">5</span>
+        <span class="stat-label">plaatsen per jaar</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">30%</span>
+        <span class="stat-label">max. sweat equity</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">€0</span>
+        <span class="stat-label">kosten bij geen deal</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-photo">
+      <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=900&q=80&fit=crop&crop=center" 
+           alt="Jonge ondernemer aan het werk" 
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.45;">
+      <div class="hero-right-overlay"></div>
+    </div>
+
+    <div class="spots-badge">
+      <span class="spots-dot"></span>
+      Max. 5 plaatsen — 2026
+    </div>
+
+    <div style="flex: 1;"></div>
+
+    <div class="hero-card">
+      <div class="hero-card-label">Jouw traject</div>
+      <div class="hero-card-title">Van kandidaat naar CEO</div>
+      <div class="hero-card-desc">Applicatie → Intakegesprek → Selectie → Bedrijf zoeken → Deal sluiten → Jij wordt CEO</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-card-label">Financieel model</div>
+      <div class="hero-card-title">Geen deal = geen kosten</div>
+      <div class="hero-card-desc">€10.000 begeleidingskost enkel verschuldigd bij een effectieve closing — betaalbaar uit de eerste cashflow van het bedrijf.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEEM -->
+<section class="problem" id="probleem">
+  <div class="problem-inner">
+    <div>
+      <div class="section-tag">De realiteit</div>
+      <h2>35% van de Vlaamse KMO's wordt geleid door 60-plussers.</h2>
+      <p class="section-intro">Een groot deel van hen denkt dat hun bedrijf end-of-life is. Niet verkoopbaar. Geen opvolger. Richting sluiting.<br><br>Wij zien dat anders.</p>
+      <ul class="problem-list">
+        <li>
+          <span class="icon">📉</span>
+          <span><strong>Geen marketing, geen digitalisatie</strong> — dat is geen doodvonnis, dat is een opportuniteit voor wie de juiste tools heeft.</span>
+        </li>
+        <li>
+          <span class="icon">🏭</span>
+          <span><strong>Duizenden bedrijven</strong> komen de komende jaren op de markt. Veel zonder opvolger, sommige zonder ze zelf te weten.</span>
+        </li>
+        <li>
+          <span class="icon">💡</span>
+          <span><strong>Jij hebt de energie en de kennis.</strong> Wij hebben het kapitaal, het netwerk en de structuur. Samen maken we er een cashcow van.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="quote-block">
+      <p class="quote-text">"Negentig procent van alle startups gaan failliet binnen drie jaar. Een bestaand bedrijf overnemen verhoogt je slaagkansen drastisch."</p>
+      <div class="quote-source">Ruben De Ruyck — Slimme Startup Door Overname</div>
+      <div class="quote-stat">
+        <div class="quote-stat-item">
+          <div class="quote-stat-num">90%</div>
+          <div class="quote-stat-label">van startups<br>mislukken</div>
+        </div>
+        <div class="quote-stat-item">
+          <div class="quote-stat-num">€500K+</div>
+          <div class="quote-stat-label">minimale omzet<br>doelbedrijf</div>
+        </div>
+        <div class="quote-stat-item">
+          <div class="quote-stat-num">3+</div>
+          <div class="quote-stat-label">medewerkers<br>aanwezig</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOE HET WERKT -->
+<section id="hoe-het-werkt" style="padding: 7rem 4rem;">
+  <div class="how">
+    <div class="how-header">
+      <div>
+        <div class="section-tag">Het proces</div>
+        <h2>Van applicatie tot CEO in zes stappen.</h2>
+      </div>
+      <p class="section-intro">Geen ingewikkeld traject. Geen jarenlange opleiding. Een helder pad van kandidatuur tot eigenaarschap.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Applicatie</div>
+        <div class="step-desc">Gratis. Stuur je kandidatuur in met je achtergrond, motivatie en sectorkennis.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Intake</div>
+        <div class="step-desc">Persoonlijk gesprek met Ruben. We toetsen fit, ambitie en sectorkennis.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Selectie</div>
+        <div class="step-desc">Max. 5 kandidaten per jaar. Exclusief, bewust beperkt. Je hoort het snel.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">Zoektocht</div>
+        <div class="step-desc">Samen zoeken we het juiste bedrijf — passend bij jouw profiel en sector.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-title">Deal & Closing</div>
+        <div class="step-desc">Wij kopen. Jij tekent als toekomstig CEO. €10K verrekend bij closing.</div>
+      </div>
+      <div class="step" style="grid-column: span 1; position: relative; left: -25%;">
+        <div class="step-num" style="border-color: var(--green); color: var(--green);">06</div>
+        <div class="step-title">Jij bouwt</div>
+        <div class="step-desc">KPI's behalen → equity opbouwen → tot 30% eigenaar. Wij blijven mentor.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUITY -->
+<section class="equity" id="equity">
+  <div class="equity-inner">
+    <div class="section-tag" style="color: var(--accent);">Jouw aandelenopbouw</div>
+    <h2 style="color: var(--white);">Elke mijlpaal maakt<br>het meer van jou.</h2>
+
+    <div class="equity-grid">
+      <div class="equity-track">
+        <div class="equity-item active">
+          <div class="equity-pct">10%</div>
+          <div class="equity-label">Na het behalen van de eerste KPI-set. Maatwerk per kandidaat en bedrijf.</div>
+          <div class="equity-when">Stap 1</div>
+        </div>
+        <div class="equity-item">
+          <div class="equity-pct">20%</div>
+          <div class="equity-label">Na de tweede reeks KPI's — groei, rendabiliteit, team.</div>
+          <div class="equity-when">Stap 2</div>
+        </div>
+        <div class="equity-item">
+          <div class="equity-pct">30%</div>
+          <div class="equity-label">Maximum. Slimme Startup Studio behoudt 70% — jij bewijst je als ondernemer.</div>
+          <div class="equity-when">Maximum</div>
+        </div>
+        <div class="equity-note">
+          <span>✓</span>
+          <span>De KPI's worden op maat bepaald per kandidaat en per bedrijf. Geen generieke targets — wel duidelijke, eerlijke spelregels van bij de start.</span>
+        </div>
+      </div>
+
+      <div class="equity-visual">
+        <div class="donut-container">
+          <svg class="donut-svg" width="280" height="280" viewBox="0 0 280 280">
+            <circle class="donut-track" cx="140" cy="140" r="110"/>
+            <circle class="donut-fill donut-fill-us" cx="140" cy="140" r="110"
+              stroke-dasharray="691.15"
+              stroke-dashoffset="207.35"/>
+            <circle class="donut-fill donut-fill-you" cx="140" cy="140" r="110"
+              stroke-dasharray="691.15"
+              stroke-dashoffset="484.8"/>
+          </svg>
+          <div class="donut-label">
+            <div class="donut-pct">30%</div>
+            <div class="donut-sub">Voor jou</div>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: rgba(255,255,255,0.45);">
+            <span style="width:12px;height:12px;border-radius:50%;background:var(--accent);display:block;"></span>
+            Jij (max. 30%)
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: rgba(255,255,255,0.45);">
+            <span style="width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.15);display:block;"></span>
+            Slimme Startup Studio (min. 70%)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOOR JOU -->
+<section id="voor-jou" style="padding: 7rem 4rem;">
+  <div class="profile">
+    <div class="profile-header">
+      <div>
+        <div class="section-tag">Ben jij het?</div>
+        <h2>Dit programma is niet voor iedereen. Bewust.</h2>
+      </div>
+      <p class="section-intro">We zoeken geen perfecte cv's. We zoeken mensen met de juiste mindset, sectorkennis en de honger om te ondernemen — zonder het risico alleen te dragen.</p>
+    </div>
+
+    <div class="profile-cards">
+      <div class="profile-card">
+        <span class="profile-icon">🎯</span>
+        <h3>De ambitieuze starter</h3>
+        <p>Je wil ondernemen maar hebt geen idee waar te beginnen, geen startkapitaal en geen netwerk. Je hebt wel werkervaring en sectorkennis die telt.</p>
+      </div>
+      <div class="profile-card">
+        <span class="profile-icon">🔄</span>
+        <h3>De herboren ondernemer</h3>
+        <p>Je hebt al een startup geprobeerd en het liep anders dan gepland. Nu wil je meer zekerheid — een bestaand bedrijf met bewezen cashflow in plaats van een blanco blad.</p>
+      </div>
+      <div class="profile-card">
+        <span class="profile-icon">🏗️</span>
+        <h3>De bouwer</h3>
+        <p>Je bent niet bang van hard werken. Je wil iets opbouwen, een team leiden, processen verbeteren en een bedrijf transformeren. Eigenaarschap motiveert jou.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 3rem; padding: 2.5rem; background: var(--grey-light); border-radius: 4px; border-left: 4px solid var(--accent2); display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+      <div>
+        <div class="section-tag" style="margin-bottom: 0.8rem;">Wat wij inbrengen</div>
+        <div class="transform-list">
+          <div class="transform-item"><span class="check">✓</span> Kapitaal voor de overname</div>
+          <div class="transform-item"><span class="check">✓</span> Bankfinanciering via het bedrijf zelf</div>
+          <div class="transform-item"><span class="check">✓</span> Shared services: accounting, marketing, IT, juridisch</div>
+          <div class="transform-item"><span class="check">✓</span> Dagelijkse begeleiding in de opstartfase</div>
+          <div class="transform-item"><span class="check">✓</span> Ruben als mentor gedurende het volledige traject</div>
+          <div class="transform-item"><span class="check">✓</span> Netwerk van adviseurs, advocaten en sectorexperts</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-tag" style="margin-bottom: 0.8rem;">Wat jij inbrengt</div>
+        <div class="transform-list">
+          <div class="transform-item"><span class="check" style="background: var(--accent2);">✓</span> Sectorkennis of werkervaring</div>
+          <div class="transform-item"><span class="check" style="background: var(--accent2);">✓</span> Ondernemersmindset en gedrevenheid</div>
+          <div class="transform-item"><span class="check" style="background: var(--accent2);">✓</span> Bereidheid om leiding te nemen</div>
+          <div class="transform-item"><span class="check" style="background: var(--accent2);">✓</span> Commitment voor de lange termijn</div>
+          <div class="transform-item"><span class="check" style="background: var(--accent2);">✓</span> €10.000 bij closing (uit cashflow bedrijf)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEDRIJFSPROFIEL -->
+<section class="company-profile" id="bedrijven">
+  <div class="company-inner">
+    <div>
+      <div class="section-tag">Wat we zoeken</div>
+      <h2>Bedrijven met potentieel dat nog niemand ziet.</h2>
+      <p class="section-intro" style="margin-bottom: 0;">Wij kopen bedrijven die moeilijk verkoopbaar lijken — en transformeren ze tot cashcows via digitalisering, modernisering en verduurzaming.</p>
+      <div class="transform-list" style="margin-top: 2rem;">
+        <div class="transform-item"><span class="check">✓</span> Verlieslatend of marginaal winstgevend — lage aankoopprijs</div>
+        <div class="transform-item"><span class="check">✓</span> Geen marketing of digitalisatie — dat is onze kans</div>
+        <div class="transform-item"><span class="check">✓</span> Minstens 3 admin/omkadering medewerkers aanwezig</div>
+        <div class="transform-item"><span class="check">✓</span> Stabiele klantenbasis of sector met vraag</div>
+        <div class="transform-item"><span class="check">✓</span> Verkoper wil overlaten — of weet het nog niet</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="specs-grid">
+        <div class="spec-item">
+          <span class="spec-icon">💰</span>
+          <div class="spec-label">Omzet</div>
+          <div class="spec-value">€500K – €2M</div>
+        </div>
+        <div class="spec-item">
+          <span class="spec-icon">👥</span>
+          <div class="spec-label">Medewerkers</div>
+          <div class="spec-value">Min. 3 admins</div>
+        </div>
+        <div class="spec-item">
+          <span class="spec-icon">📊</span>
+          <div class="spec-label">Rendabiliteit</div>
+          <div class="spec-value">Verlieslatend<br>of marginaal</div>
+        </div>
+        <div class="spec-item">
+          <span class="spec-icon">🗺️</span>
+          <div class="spec-label">Regio</div>
+          <div class="spec-value">Vlaanderen<br>(focus)</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 1.5rem; padding: 1.5rem; background: var(--white); border-radius: 4px; border: 1px solid var(--grey-mid);">
+        <div style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--grey-text); margin-bottom: 1rem; font-weight: 600;">De transformatie die wij brengen</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+          <span style="background: rgba(26,122,74,0.08); color: var(--accent); font-size: 0.8rem; font-weight: 600; padding: 0.4rem 0.9rem; border-radius: 2px;">Digitalisering</span>
+          <span style="background: rgba(26,122,74,0.08); color: var(--accent); font-size: 0.8rem; font-weight: 600; padding: 0.4rem 0.9rem; border-radius: 2px;">Marketing & Sales</span>
+          <span style="background: rgba(26,122,74,0.08); color: var(--accent); font-size: 0.8rem; font-weight: 600; padding: 0.4rem 0.9rem; border-radius: 2px;">IT-modernisering</span>
+          <span style="background: rgba(26,122,74,0.08); color: var(--accent); font-size: 0.8rem; font-weight: 600; padding: 0.4rem 0.9rem; border-radius: 2px;">Verduurzaming</span>
+          <span style="background: rgba(26,122,74,0.08); color: var(--accent); font-size: 0.8rem; font-weight: 600; padding: 0.4rem 0.9rem; border-radius: 2px;">Kostoptimalisatie</span>
+          <span style="background: rgba(26,122,74,0.08); color: var(--accent); font-size: 0.8rem; font-weight: 600; padding: 0.4rem 0.9rem; border-radius: 2px;">Revenue groei</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KOSTEN -->
+<section style="padding: 7rem 4rem;">
+  <div class="costs">
+    <div class="costs-header">
+      <div class="section-tag">Transparante kosten</div>
+      <h2>Geen deal, geen kosten. Punt.</h2>
+      <p class="section-intro" style="margin: 1rem auto 0; text-align: center;">We geloven in een eerlijk model. Je risico is minimaal — ons vertrouwen in jou des te groter.</p>
+    </div>
+
+    <div class="costs-grid">
+      <div class="cost-card free">
+        <div class="cost-badge">Stap 1</div>
+        <div class="cost-price">€0</div>
+        <div class="cost-when">Applicatie & Intake</div>
+        <div class="cost-desc">Stuur je kandidatuur in en volg een intakegesprek. Geen verplichtingen, geen kosten. We leren elkaar kennen en toetsen de fit.</div>
+      </div>
+      <div class="cost-card selected">
+        <div class="cost-badge">Stap 2</div>
+        <div class="cost-price" style="color: var(--accent);">€0</div>
+        <div class="cost-when" style="color: rgba(255,255,255,0.5);">Zoektocht & Begeleiding</div>
+        <div class="cost-desc">Ook tijdens de zoektocht naar het juiste bedrijf betaal je niets. Samen zoeken we op basis van jouw profiel en sectorkennis.</div>
+      </div>
+      <div class="cost-card success">
+        <div class="cost-badge">Bij closing</div>
+        <div class="cost-price">€10K</div>
+        <div class="cost-when">Enkel bij effectieve deal</div>
+        <div class="cost-desc">€10.000 begeleidingskost, verrekend bij de closing van de deal. Betaalbaar uit de eerste cashflow van het bedrijf. <strong>Geen deal = nooit verschuldigd.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOEK -->
+<section class="book" id="boek">
+  <div class="book-inner">
+    <div class="book-cover">
+      <div class="book-mockup">
+        <div class="book-mockup-sub">Cheatcodes voor een succesvolle eerste overname</div>
+        <div class="book-mockup-title">Slimme Startup<br>Door Overname</div>
+        <div style="width: 40px; height: 3px; background: var(--accent); border-radius: 2px; margin: 1.5rem 0;"></div>
+        <div style="font-size: 0.82rem; color: rgba(255,255,255,0.35); line-height: 1.7; font-weight: 300;">Het praktische handboek voor iedereen die ondernemer wil worden via een slimme bedrijfsovername. Geen theorie — een hands-on stappenplan.</div>
+        <div class="book-mockup-author">Ruben De Ruyck</div>
+      </div>
+    </div>
+
+    <div class="book-content">
+      <div class="section-tag">Het boek</div>
+      <h2>De gids die dit<br>programma geboren deed worden.</h2>
+      <p class="section-intro">Ruben schreef "Slimme Startup Door Overname" omdat er geen enkele hands-on handleiding bestond voor aspirant-ondernemers die een bestaand bedrijf willen overnemen.</p>
+
+      <div class="book-points">
+        <div class="book-point">
+          <span class="book-point-num">01</span>
+          <span>De 10 cheatcodes voor een succesvolle eerste overname — beproefde strategieën die je direct kunt toepassen.</span>
+        </div>
+        <div class="book-point">
+          <span class="book-point-num">02</span>
+          <span>Hoe je het juiste bedrijf vindt, waardeert en koopt — ook als niemand het te koop stelt.</span>
+        </div>
+        <div class="book-point">
+          <span class="book-point-num">03</span>
+          <span>Financiering, onderhandelen, due diligence en closing — stap voor stap uitgelegd zonder juridisch jargon.</span>
+        </div>
+        <div class="book-point">
+          <span class="book-point-num">04</span>
+          <span>De buy-fix-flip strategie en hoe je een 'oud' bedrijf transformeert tot een moderne cashcow.</span>
+        </div>
+      </div>
+
+      <a href="#" class="book-btn">
+        Bestel het boek
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="kandideer" style="padding: 9rem 4rem;">
+  <div class="cta-bg"></div>
+  <div class="cta-inner">
+    <div class="cta-warning">
+      <span class="spots-dot" style="background: var(--accent);"></span>
+      Slechts 5 plaatsen — 2026
+    </div>
+    <h2>Klaar om ondernemer<br>te worden?</h2>
+    <p>De applicatie is gratis. Het intakegesprek is persoonlijk. De selectie is streng — bewust. Want wij investeren niet alleen kapitaal, wij investeren tijd, kennis en vertrouwen in jou.</p>
+    <a href="mailto:info@slimmestartup.be" class="cta-btn-main">
+      Stuur je kandidatuur
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <div class="cta-meta">Geen deal = geen kosten &nbsp;·&nbsp; Persoonlijke begeleiding door Ruben De Ruyck &nbsp;·&nbsp; Max. 5 kandidaten per jaar</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo"><span class="logo-grey-footer">Slimme</span><span>Startup</span></a>
+  <ul class="footer-links">
+    <li><a href="#">Hoe het werkt</a></li>
+    <li><a href="#">Het boek</a></li>
+    <li><a href="#">BrightBird M&A</a></li>
+    <li><a href="#">BrightBird Groei</a></li>
+    <li><a href="#">Privacy</a></li>
+  </ul>
+  <span>© 2026 SlimmeStartup — een initiatief van BrightBird</span>
+</footer>
+
+<script>
+// Animate steps on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.step, .profile-card, .cost-card, .spec-item, .equity-item').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = `opacity 0.5s ease ${i * 0.08}s, transform 0.5s ease ${i * 0.08}s`;
+  observer.observe(el);
+});
+
+// Donut animation on scroll
+const donutObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const fills = document.querySelectorAll('.donut-fill');
+      fills[0].style.strokeDashoffset = '207.35';
+      fills[1].style.strokeDashoffset = '484.8';
+    }
+  });
+}, { threshold: 0.5 });
+
+const donut = document.querySelector('.donut-container');
+if (donut) {
+  document.querySelectorAll('.donut-fill').forEach(f => {
+    f.style.strokeDashoffset = '691.15';
+  });
+  donutObserver.observe(donut);
+}
+</script>
+</body>
+</html>
