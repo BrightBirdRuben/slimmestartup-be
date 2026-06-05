@@ -1181,6 +1181,191 @@
   .donut-fill { fill: none; stroke-width: 20; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
   .donut-fill-you { stroke: var(--accent); }
   .donut-fill-us { stroke: rgba(255,255,255,0.15); }
+
+  /* ============================================
+     RESPONSIVE — TABLET & MOBILE
+  ============================================ */
+
+  @media (max-width: 1024px) {
+    nav { padding: 1.2rem 2rem; }
+
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 7rem 2rem 4rem; }
+    .hero-right { min-height: 420px; padding: 2rem; }
+
+    .problem-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .how-header { grid-template-columns: 1fr; gap: 2rem; }
+    .steps { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+    .steps::before { display: none; }
+    .step:last-child { grid-column: span 1; left: 0; }
+
+    .equity-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .profile-header { grid-template-columns: 1fr; gap: 2rem; }
+    .profile-cards { grid-template-columns: 1fr 1fr; }
+    .company-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .specs-grid { grid-template-columns: 1fr 1fr; }
+    .costs-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .book-inner { grid-template-columns: 1fr; gap: 3rem; }
+
+    section { padding: 5rem 2rem; }
+    .equity { padding: 5rem 2rem; }
+    .book { padding: 5rem 2rem; }
+    .company-profile { padding: 5rem 2rem; }
+    .problem { padding: 5rem 2rem; }
+  }
+
+  @media (max-width: 768px) {
+    nav {
+      padding: 1rem 1.2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    /* Mobile hamburger placeholder - show only CTA */
+    .nav-cta {
+      display: inline-flex !important;
+      font-size: 0.82rem !important;
+      padding: 0.5rem 1rem !important;
+    }
+
+    /* HERO */
+    .hero {
+      grid-template-columns: 1fr;
+      padding-top: 70px;
+    }
+
+    .hero-left {
+      padding: 3rem 1.4rem 2.5rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 8vw, 2.8rem);
+      letter-spacing: -0.02em;
+    }
+
+    .hero-sub { font-size: 1rem; }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .btn-primary {
+      width: 100%;
+      justify-content: center;
+      padding: 1rem 1.5rem;
+    }
+
+    .hero-stats {
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-right {
+      min-height: 320px;
+      padding: 1.5rem;
+    }
+
+    .hero-card { padding: 1.2rem; }
+    .hero-card-title { font-size: 1rem; }
+
+    /* SECTIONS */
+    section { padding: 4rem 1.4rem; }
+    .equity { padding: 4rem 1.4rem; }
+    .book { padding: 4rem 1.4rem; }
+    .company-profile { padding: 4rem 1.4rem; }
+    .problem { padding: 4rem 1.4rem; }
+    .cta-section { padding: 5rem 1.4rem; }
+
+    h2 { font-size: clamp(1.7rem, 6vw, 2.4rem); }
+
+    /* PROBLEM */
+    .problem-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .quote-block { padding: 2rem 1.5rem; }
+    .quote-text { font-size: 1.15rem; }
+    .quote-stat { flex-wrap: wrap; gap: 1.2rem; }
+
+    /* STEPS */
+    .how { max-width: 100%; }
+    .how-header { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 3rem; }
+    .steps {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .steps::before { display: none; }
+    .step { text-align: left; padding: 1.2rem 1.5rem; background: var(--grey-light); border-radius: 4px; display: flex; align-items: flex-start; gap: 1.2rem; }
+    .step-num { margin: 0; flex-shrink: 0; width: 44px; height: 44px; font-size: 0.9rem; }
+    .step:last-child { left: 0; grid-column: span 1; }
+
+    /* EQUITY */
+    .equity-inner { max-width: 100%; }
+    .equity-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .equity-item { grid-template-columns: 60px 1fr; gap: 1rem; }
+    .equity-when { display: none; }
+    .donut-container { width: 220px; height: 220px; }
+    .donut-svg { width: 220px; height: 220px; }
+
+    /* PROFILE */
+    .profile { max-width: 100%; }
+    .profile-header { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+    .profile-cards { grid-template-columns: 1fr; gap: 1.2rem; }
+
+    /* voor jou grid */
+    div[style*="grid-template-columns: 1fr 1fr"] {
+      display: block !important;
+    }
+
+    /* COMPANY */
+    .company-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .specs-grid { grid-template-columns: 1fr 1fr; }
+
+    /* COSTS */
+    .costs { max-width: 100%; }
+    .costs-grid { grid-template-columns: 1fr; }
+    .cost-price { font-size: 2rem; }
+
+    /* BOOK */
+    .book-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .book-mockup { padding: 2rem 1.8rem; }
+    .book-mockup-title { font-size: 1.3rem; }
+
+    /* CTA */
+    .cta-btn-main {
+      width: 100%;
+      justify-content: center;
+      font-size: 0.95rem;
+      padding: 1rem 1.5rem;
+    }
+
+    /* FOOTER */
+    footer {
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+      padding: 2.5rem 1.4rem;
+    }
+
+    .footer-links {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .specs-grid { grid-template-columns: 1fr; }
+    .hero-stats { flex-direction: column; gap: 1rem; padding-top: 1.5rem; }
+    .stat-num { font-size: 1.5rem; }
+    .equity-item { padding: 1rem; }
+    .profile-card { padding: 1.5rem; }
+    .cost-card { padding: 1.8rem; }
+  }
+
 </style>
 </head>
 <body>
